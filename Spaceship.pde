@@ -23,4 +23,24 @@ class Spaceship extends Floater
      myCenterY = 500;
      myPointDirection = 0;    
 }
+public void show() {
+  fill(myColor);   
+    stroke(255);           
+    double dRadians = myPointDirection*(Math.PI/180);                 
+    int xRotatedTranslated, yRotatedTranslated;    
+    beginShape();         
+    for(int nI = 0; nI < corners; nI++)    
+    {     
+      xRotatedTranslated = (int)((xCorners[nI]* Math.cos(dRadians)) - (yCorners[nI] * Math.sin(dRadians))+myCenterX);     
+      yRotatedTranslated = (int)((xCorners[nI]* Math.sin(dRadians)) + (yCorners[nI] * Math.cos(dRadians))+myCenterY);      
+      vertex(xRotatedTranslated,yRotatedTranslated);    
+    }   
+    endShape(CLOSE);  
+
+}
+public void show2() {
+  noStroke();
+  fill(0,255,255);
+  ellipse((int)(getX()-10*Math.cos(getPointDirection()*(Math.PI/180))),(int)(getY()-10*Math.sin(getPointDirection()*(Math.PI/180))),15,15);
+}
 }

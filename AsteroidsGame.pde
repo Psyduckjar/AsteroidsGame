@@ -1,44 +1,90 @@
+private int starNum = 50;
 Spaceship hi = new Spaceship();
-Star[] omg = new Star[50];
-
+Star[] omg = new Star[starNum];
+private boolean keyUp = false;
+private boolean keyLeft = false;
+private boolean keyDown = false;
+private boolean keyRight = false;
 public void setup() 
 {
   size(1000,1000);
+ // background(0);
   for(int i = 0; i < omg.length; i++) { //makes the stars
-    omg = new Star[i];
+    omg[i] = new Star();
   }   
   
 }
 public void draw() 
 {
- 
+ background(0);
   for(int i = 0; i < omg.length; i++) { //puts the stars on the screen
-    omg[i].move();
     omg[i].show();
+  } 
+//  hi.show();
+//  hi.move();
+  text(("myDirectionX:" + hi.getDirectionX()),30,30);
+  text(("myDirectionY:" + hi.getDirectionY()),30,50);
+
+   
+   //controls
+   if(keyUp == true) {
+    hi.accelerate(.25);
+    hi.show2();
+
   }
-  
-  
-  
-  
-  
+  if(keyRight == true) {
+    hi.turn(7);
+
+  }
+  if(keyLeft == true) {
+    hi.turn(-7);
+
+  }
+  if(keyDown == true) {
+    hi.setDirectionX(0);
+    hi.setDirectionY(0);
+  }
   hi.show();
+  hi.move();
+  
+
 }
-public void keyTyped() {
+public void keyPressed() {
   if(key == 'w') {
-    hi.accelerate(8);
-    hi.show();
+    keyUp = true;
   }
   if(key == 'd') {
-    hi.turn(7);
-    hi.show();
+    keyRight = true;
   }
   if(key == 'a') {
-    hi.turn(-7);
-    hi.show();
+    keyLeft = true;
   }
-  if(key == ' ') {
-    hi.move();
-    hi.show();
+ if(key == 's') {
+    keyDown = true;
   }
+  if (key == 'h')
+  {
+    hi.setX((int)(Math.random()*width));
+    hi.setY((int)(Math.random()*height));
+    hi.setDirectionX(0);
+    hi.setDirectionY(0);
+    hi.setPointDirection((int)(Math.random()*360));
+  }
+}
+public void keyReleased() 
+{
+  if(key == 'w') {
+    keyUp = false;
+  }
+  if(key == 'd') {
+    keyRight = false;
+  }
+   if(key == 'a') {
+   keyLeft = false;
+  }
+  if(key == 's') {
+    keyDown = false;
+  }
+
 }
   

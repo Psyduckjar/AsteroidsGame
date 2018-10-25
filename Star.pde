@@ -1,19 +1,14 @@
 class Star //note that this class does NOT extend Floater
 {
-  double xPosition, yPosition, myAngle;
+  int xPosition, yPosition ;
+  //myAngle;
   public Star() {
-    xPosition = 0;
-    yPosition = 0;
+   xPosition = ((int)(Math.random()*1000));
+   yPosition = ((int)(Math.random()*1000));
    // myAngle = 0;
   }   
-    
-    public void move() {
-      xPosition = ((Math.random()*1000));
-      yPosition = ((Math.random()*1000));
-     // myAngle //hmm 
-    }
-  
-  
     public void show() {
+      fill(255,255,0);
+      ellipse(xPosition,yPosition,20,20);
     }
 }
