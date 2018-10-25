@@ -6,6 +6,8 @@ private boolean keyLeft = false;
 private boolean keyDown = false;
 private boolean keyRight = false;
 public void setup() 
+// create a laser beam that you can fire, consisting of a little charge (a bar that you'd need to fill up
+// before you can fire it) followed by a huge beam coming from the center tip
 {
   size(1000,1000);
  // background(0);
