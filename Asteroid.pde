@@ -13,13 +13,14 @@ public void setX(int x)  {myCenterX = x;}
   public double getPointDirection() {return myPointDirection;}
   /*public int getxCorner() {return xCorners;}
   public int getyCorner()*/
-
+  public double astSize;
 public Asteroid() 
 {
-  rotSpeed = ((int)(Math.random()*5)-2);
-  corners = 5;
-     int[] gF = {((int)(Math.random()*40)),((int)(Math.random()*30)),((int)(Math.random()*40)),((int)(Math.random()*-40)),((int)(Math.random()*-40))};
-     int[] gG = { ((int)(Math.random()*-20)),((int)(Math.random()*-30)),((int)(Math.random()*-40)),((int)(Math.random()*40)),((int)(Math.random()*40))};
+ astSize = ((int)(Math.random()*5)-2); //will change the size by multiplying it withthe corners
+ rotSpeed = ((int)(Math.random()*5)-2);
+  corners = 9;
+     int[] gF = { 30 ,  40, 30, 20,-10, -20, -50, -60, -40};
+     int[] gG = { 20,  -30, -70, -80,-80,-40, -70, -40, 0 };
      xCorners = gF;
      yCorners = gG;
      myColor = color(128,128,128);  

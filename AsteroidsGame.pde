@@ -2,7 +2,7 @@ private int starNum = 50;
 Spaceship hi = new Spaceship();
 Star[] omg = new Star[starNum];
 Bullet fresh = new Bullet(hi);
-Asteroid[] aster = new Asteroid[((int)(Math.random()*50))];
+ArrayList<Asteroid> geeking = new ArrayList<Asteroid>();
 private int MAX = 0;
 private boolean keyUp = false;
 private boolean keyLeft = false;
@@ -17,8 +17,8 @@ public void setup()
   for(int i = 0; i < omg.length; i++) { //makes the stars
     omg[i] = new Star();
   }   
-  for(int i = 0; i < aster.length; i++) {
-    aster[i] = new Asteroid();
+  for(int i = 0; i < 50; i++) {
+    geeking.add(new Asteroid());
   }
   
 }
@@ -28,14 +28,15 @@ public void draw()
   for(int i = 0; i < omg.length; i++) { //puts the stars on the screen
     omg[i].show();
   } 
-  for(int i = 0; i < aster.length; i++) {
-    aster[i].move();
-    aster[i].show();
+ for(int i = 0; i < geeking.size(); i++) {
+    geeking.get(i).move();
+    geeking.get(i).show();
   }
 
   text(("myDirectionX:" + hi.getDirectionX()),30,30);
   text(("myDirectionY:" + hi.getDirectionY()),30,50);
-
+  
+  
    
    //controls
    if(keyUp == true) {
