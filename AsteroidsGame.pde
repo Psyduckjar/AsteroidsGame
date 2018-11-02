@@ -1,6 +1,9 @@
 private int starNum = 50;
 Spaceship hi = new Spaceship();
 Star[] omg = new Star[starNum];
+Bullet fresh = new Bullet(hi);
+Asteroid[] aster = new Asteroid[((int)(Math.random()*50))];
+private int MAX = 0;
 private boolean keyUp = false;
 private boolean keyLeft = false;
 private boolean keyDown = false;
@@ -14,6 +17,9 @@ public void setup()
   for(int i = 0; i < omg.length; i++) { //makes the stars
     omg[i] = new Star();
   }   
+  for(int i = 0; i < aster.length; i++) {
+    aster[i] = new Asteroid();
+  }
   
 }
 public void draw() 
@@ -22,8 +28,11 @@ public void draw()
   for(int i = 0; i < omg.length; i++) { //puts the stars on the screen
     omg[i].show();
   } 
-//  hi.show();
-//  hi.move();
+  for(int i = 0; i < aster.length; i++) {
+    aster[i].move();
+    aster[i].show();
+  }
+
   text(("myDirectionX:" + hi.getDirectionX()),30,30);
   text(("myDirectionY:" + hi.getDirectionY()),30,50);
 
@@ -72,6 +81,12 @@ public void keyPressed() {
     hi.setDirectionY(0);
     hi.setPointDirection((int)(Math.random()*360));
   }
+ /* if (key == 'l')
+  {
+    MAX = MAX + 1;
+      if(MAX == 10) { MAX = 0; }
+    fire();
+  }*/
 }
 public void keyReleased() 
 {
@@ -89,4 +104,19 @@ public void keyReleased()
   }
 
 }
-  
+
+//creates a bullet
+//if key button is pressed, add a value(will be max point) and a for loop to create 2 instances, figure out the equation for the paremeter
+/*public void fire() 
+{
+  for(int i = 0; i < MAX;i++)
+  {
+    fresh[i] = new Bullet(hi.getX()+5,hi.getY()+5);
+    fresh[i + 1] = new Bullet(hi.getX()+5,hi.getY()-5);
+    fresh[i].move();
+    fresh[i+1].move();
+    fresh[i].show();
+    fresh[i+1].show();
+}
+}
+*/
