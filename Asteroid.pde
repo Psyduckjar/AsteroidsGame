@@ -19,8 +19,9 @@ public Asteroid()
  astSize = ((int)(Math.random()*5)-2); //will change the size by multiplying it withthe corners
  rotSpeed = ((int)(Math.random()*5)-2);
   corners = 9;
-     int[] gF = { 30 ,  40, 30, 20,-10, -20, -50, -60, -40};
-     int[] gG = { 20,  -30, -70, -80,-80,-40, -70, -40, 0 };
+     int rand = ((int)(Math.random()*10));
+     int[] gF = { 15 -rand ,  20-rand, 15-rand, 10-rand,-5-rand, -10-rand, -25-rand, -30-rand, -20-rand};
+     int[] gG = { 5 + rand,  -15 + rand, -35 + rand, -40 + rand,-40 + rand,-40 + rand, -35 + rand, -20 + rand, 0 + rand };
      xCorners = gF;
      yCorners = gG;
      myColor = color(128,128,128);  
