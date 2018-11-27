@@ -25,14 +25,15 @@ public void show()
 {
   fill(myColor);
   stroke(myColor);
-  rect((float)myCenterX,(float)myCenterY,(float)5,(float)5);
+  ellipse((float)myCenterX,(float)myCenterY,(float)5,(float)5);
 }
 
-public void move()
+/*public void move()
 {
   myCenterX =+ myDirectionX;
   myCenterX =+ myDirectionY;
 }
 }
+*/
 
-  
+}  
