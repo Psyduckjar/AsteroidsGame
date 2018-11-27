@@ -44,4 +44,7 @@ public void show2() {
   fill(0,255,255);
   ellipse((int)(getX()-10*Math.cos(getPointDirection()*(Math.PI/180))),(int)(getY()-10*Math.sin(getPointDirection()*(Math.PI/180))),15,15);
 }
+public void show3() {
+  fill(0,244,235);
+  
 }

@@ -1,8 +1,9 @@
 private int starNum = 50;
-private boolean alive = true;  
+private boolean alive = true; 
+private boolean shield = true;
 Spaceship hi = new Spaceship();
 Star[] omg = new Star[starNum];
-Bullet fresh = new Bullet(hi);
+//Bullet fresh = new Bullet(hi);
 ArrayList<Bullet> moment = new ArrayList<Bullet>();
 ArrayList<Asteroid> geeking = new ArrayList<Asteroid>();
 //Asteroid[] geek = new Asteroid[50];
@@ -24,7 +25,7 @@ public void setup()
   for (int i = 0; i < 50; i++) {
     geeking.add(new Asteroid());
   }
-  /*for (int i = 0; i < 50; i++) {
+   /*for (int i = 0; i < 50; i++) {
     moment.add(new Bullet(hi));
   }
   */
@@ -35,6 +36,7 @@ public void setup()
 public void draw() 
 {
   background(0);
+ // Drawing the stars & asteroids
   for (int i = 0; i < omg.length; i++) { //puts the stars on the screen
     omg[i].show();
   } 
@@ -42,12 +44,14 @@ public void draw()
     geeking.get(i).move();
     geeking.get(i).show();
   }
+ // Creating the shooting function 
 if(fire && alive) {
  for(int i = 0; i < moment.size();i++) {        
    moment.get(i).move();
    moment.get(i).show();    
   }
 }
+
 for(int i = 0; i < moment.size() - 1; i++) {
 if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
   moment.remove(i);
@@ -55,15 +59,23 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeki
 }
 
 }
+  //coords
   text(("myDirectionX:" + hi.getDirectionX()), 30, 30);
   text(("myDirectionY:" + hi.getDirectionY()), 30, 50);
 
+  // collision logic
   for (int i = 0; i < geeking.size()-1; i++) {
     if (dist(hi.getX(), hi.getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
       geeking.remove(i);
+      if(!shield){
       alive = false;
+      }
     }
   }
+  //shield
+  while(shield) {
+    
+
 
 
   //controls
@@ -130,9 +142,7 @@ public void keyReleased()
   if (key == 's') {
     keyDown = false;
   }
-  /*if (key == 'l') {
-    fire = false;
-}*/
+  
 }
 //creates a bullet
 //if key button is pressed, add a value(will be max point) and a for loop to create 2 instances, figure out the equation for the paremeter
