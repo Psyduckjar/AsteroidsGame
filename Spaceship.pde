@@ -1,6 +1,11 @@
 class Spaceship extends Floater  
 {   
-   public void setX(int x) { myCenterX = x; } 
+private int shieldTimer;   
+private boolean shield;
+public boolean shieldDude() { return shield; }
+public int getTimer() { return shieldTimer;}
+public void shieldActive(boolean x) {shield = x;}
+public void setX(int x) { myCenterX = x; } 
    public int getX() {return (int)myCenterX;}   
    public void setY(int y) { myCenterY = y; }   
    public int getY() {return (int)myCenterY;}   
@@ -12,6 +17,8 @@ class Spaceship extends Floater
    public double getPointDirection() {return myPointDirection;}
    public void setColor(int x, int y, int z) { myColor = color(x, y, z); }
    public Spaceship() {
+     shield = true;
+     shieldTimer = 500;
      corners = 8;
      int[] xF = {-15,0,7,1,16,1,7,0};
      int[] xG = { 0,15,13,9,0,-9,-13,-15};
@@ -45,9 +52,13 @@ public void show2() {
   ellipse((int)(getX()-10*Math.cos(getPointDirection()*(Math.PI/180))),(int)(getY()-10*Math.sin(getPointDirection()*(Math.PI/180))),15,15);
 }
 public void show3() {
-  fill(0,244,235);
+  if( shieldTimer > 0 ) {
+  shieldTimer--;
+    fill(0,244,235);
   tint(255, 126);
   ellipse((int)getX(),(int)getY(), 25, 25);
-  
+  } else { 
+   shieldActive(false);
+}
 }
 }

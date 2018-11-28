@@ -1,7 +1,6 @@
 private int starNum = 50;
-private double timer = 0;
 private boolean alive = true; 
-private boolean shield = true;
+//private boolean shield = true;
 Spaceship hi = new Spaceship();
 Star[] omg = new Star[starNum];
 //Bullet fresh = new Bullet(hi);
@@ -26,13 +25,14 @@ public void setup()
   for (int i = 0; i < 50; i++) {
     geeking.add(new Asteroid());
   }
+  //bad code********************************
    /*for (int i = 0; i < 50; i++) {
     moment.add(new Bullet(hi));
   }
-  */
-  /* for(int i = 0; i < geek.length; i++) {
+   for(int i = 0; i < geek.length; i++) {
    geek[i] = new Asteroid();
    }*/
+   //bad code **********************************
 }
 public void draw() 
 {
@@ -52,29 +52,39 @@ if(fire && alive) {
    moment.get(i).show();    
   }
 }
-
-for(int i = 0; i < moment.size() - 1; i++) {
-if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
+for(int k = 0; k < geeking.size() ;k++) {
+for(int i = 0; i < moment.size() ; i++) {
+if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeking.get(k).getY()) < 35) {
+  
   moment.remove(i);
-  geeking.remove(i);
+  geeking.remove(k);
+  break;
 }
+}
+//CREATE A TIMER FOR REMOVAL OF BULLET AFTER CERTAIN TIME OF INACTIVITY
+//for(int i = 0; i < moment.size(); i++ {
+
+  
+//}
 
 }
   //coords
   text(("myDirectionX:" + hi.getDirectionX()), 30, 30);
   text(("myDirectionY:" + hi.getDirectionY()), 30, 50);
-
+  if(hi.getTimer() > 0) {
+  text(("ShieldTimer: " +  hi.getTimer()),30, 70);
+  }
   // collision logic
   for (int i = 0; i < geeking.size()-1; i++) {
     if (dist(hi.getX(), hi.getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
       geeking.remove(i);
-      if(!shield){
+      if(!hi.shieldDude()){
       alive = false;
       }
     }
   }
   //shield
- /*for(int i = millis(); i < (millis() + 1500); i++ ) {
+/* for(int i = millis(); i < (millis() + 1500);) {
    timer+=1; 
     if((int)timer == 1500) {
       shield = false;
@@ -107,7 +117,7 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeki
     hi.show();
     hi.move();
   }
-  if (shield) {
+  if (hi.shieldDude()) {
     hi.show3();
   }
     
