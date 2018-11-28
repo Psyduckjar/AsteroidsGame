@@ -1,4 +1,5 @@
 private int starNum = 50;
+private double timer = 0;
 private boolean alive = true; 
 private boolean shield = true;
 Spaceship hi = new Spaceship();
@@ -73,7 +74,13 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeki
     }
   }
   //shield
-  while(shield) {
+ /*for(int i = millis(); i < (millis() + 1500); i++ ) {
+   timer+=1; 
+    if((int)timer == 1500) {
+      shield = false;
+    }
+  }*/
+    
     
 
 
@@ -96,8 +103,12 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(i).getX(), geeki
     hi.setDirectionY(0);
   }
   if (alive) {
+    
     hi.show();
     hi.move();
+  }
+  if (shield) {
+    hi.show3();
   }
     
 }

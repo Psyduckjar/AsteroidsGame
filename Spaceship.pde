@@ -46,5 +46,8 @@ public void show2() {
 }
 public void show3() {
   fill(0,244,235);
+  tint(255, 126);
+  ellipse((int)getX(),(int)getY(), 25, 25);
   
+}
 }
