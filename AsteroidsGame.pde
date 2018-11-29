@@ -46,34 +46,38 @@ public void draw()
     geeking.get(i).show();
   }
  // Creating the shooting function 
-if(fire && alive) {
+if(fire) {
  for(int i = 0; i < moment.size();i++) {        
    moment.get(i).move();
    moment.get(i).show();    
   }
 }
+//bullet & asteroid collision
 for(int k = 0; k < geeking.size() ;k++) {
 for(int i = 0; i < moment.size() ; i++) {
 if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeking.get(k).getY()) < 35) {
-  
-  moment.remove(i);
-  geeking.remove(k);
-  break;
+  if(moment.get(i).isBulletAlive()){
+    moment.remove(i);
+    geeking.remove(k);
+    break;
+      }
+    }
+  }
 }
-}
-//CREATE A TIMER FOR REMOVAL OF BULLET AFTER CERTAIN TIME OF INACTIVITY
-//for(int i = 0; i < moment.size(); i++ {
 
-  
-//}
+/*if(!alive) {
+  for(int i = 0; i < moment.size() ; i++) {
+    moment.remove(i);
+  }
+}*/
 
-}
-  //coords
+  //coords & shield timer display
   text(("myDirectionX:" + hi.getDirectionX()), 30, 30);
   text(("myDirectionY:" + hi.getDirectionY()), 30, 50);
   if(hi.getTimer() > 0) {
   text(("ShieldTimer: " +  hi.getTimer()),30, 70);
   }
+  // ***********************************
   // collision logic
   for (int i = 0; i < geeking.size()-1; i++) {
     if (dist(hi.getX(), hi.getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
@@ -83,16 +87,9 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeki
       }
     }
   }
-  //shield
-/* for(int i = millis(); i < (millis() + 1500);) {
-   timer+=1; 
-    if((int)timer == 1500) {
-      shield = false;
-    }
-  }*/
+  
     
-    
-
+   
 
 
   //controls
@@ -147,6 +144,9 @@ public void keyPressed() {
   {
     fire = true;
     moment.add(new Bullet(hi)); 
+  }
+  if (key == BACKSPACE) {
+    alive = true;
   }
 }
 public void keyReleased() 

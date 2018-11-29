@@ -54,9 +54,9 @@ public void show2() {
 public void show3() {
   if( shieldTimer > 0 ) {
   shieldTimer--;
-    fill(0,244,235);
-  tint(255, 126);
-  ellipse((int)getX(),(int)getY(), 25, 25);
+    fill(0, 150 - 1);
+  tint(0, 255, 126, 0);
+  ellipse((int)getX(),(int)getY(), 40, 40);
   } else { 
    shieldActive(false);
 }
