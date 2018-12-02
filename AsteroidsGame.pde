@@ -7,12 +7,19 @@ Star[] omg = new Star[starNum];
 ArrayList<Bullet> moment = new ArrayList<Bullet>();
 ArrayList<Asteroid> geeking = new ArrayList<Asteroid>();
 //Asteroid[] geek = new Asteroid[50];
-private int MAX = 0;
 private boolean keyUp = false;
 private boolean keyLeft = false;
 private boolean keyDown = false;
 private boolean keyRight = false;
 private boolean fire = false;
+private boolean alienAlive = true;
+private int numEnemies = 4;
+
+
+
+ArrayList<bot> alien = new ArrayList<bot>();
+
+
 public void setup() 
   // create a laser beam that you can fire, consisting of a little charge (a bar that you'd need to fill up
   // before you can fire it) followed by a huge beam coming from the center tip
@@ -25,19 +32,21 @@ public void setup()
   for (int i = 0; i < 50; i++) {
     geeking.add(new Asteroid());
   }
-  //bad code********************************
-   /*for (int i = 0; i < 50; i++) {
-    moment.add(new Bullet(hi));
+  //ADDING BOT********************************
+
+
+
+  for (int i = 0; i < numEnemies; i++) 
+  {
+    alien.add( new bot());
   }
-   for(int i = 0; i < geek.length; i++) {
-   geek[i] = new Asteroid();
-   }*/
-   //bad code **********************************
+
+  //bad code **********************************
 }
 public void draw() 
 {
   background(0);
- // Drawing the stars & asteroids
+  // Drawing the stars & asteroids
   for (int i = 0; i < omg.length; i++) { //puts the stars on the screen
     omg[i].show();
   } 
@@ -45,51 +54,113 @@ public void draw()
     geeking.get(i).move();
     geeking.get(i).show();
   }
- // Creating the shooting function 
-if(fire) {
- for(int i = 0; i < moment.size();i++) {        
-   moment.get(i).move();
-   moment.get(i).show();    
+  // Creating the shooting function 
+  if (fire) {
+    for (int i = 0; i < moment.size(); i++) {        
+      moment.get(i).move();
+      moment.get(i).show();
+    }
   }
-}
-//bullet & asteroid collision
-for(int k = 0; k < geeking.size() ;k++) {
-for(int i = 0; i < moment.size() ; i++) {
-if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeking.get(k).getY()) < 35) {
-  if(moment.get(i).isBulletAlive()){
-    moment.remove(i);
-    geeking.remove(k);
-    break;
+  //bullet & asteroid collision
+  for (int k = 0; k < geeking.size(); k++) {
+    for (int i = 0; i < moment.size(); i++) {
+      if (dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeking.get(k).getY()) < 35) {
+        if (moment.get(i).isBulletAlive()) {
+          moment.remove(i);
+          geeking.remove(k);
+          break;
+        }
       }
     }
   }
-}
+  //*********************************************************
 
-/*if(!alive) {
-  for(int i = 0; i < moment.size() ; i++) {
-    moment.remove(i);
+  //SHOWING THE BOTS
+
+  if (geeking.size() == 0) {
+    for (int i = 0; i < alien.size(); i++) 
+    {
+     
+      
+      if(alien.get(i).isAlive())
+      {  
+      alien.get(i).show();     
+      }
+        alien.get(i).findshoot();
+        alien.get(i).shoot();
+        alien.get(i).autoMove();
+        alien.get(i).move();
+        
+          alien.get(i).alienShield();
+        
+      
+    }
   }
-}*/
+ 
+ 
+ //collision with your bullets & the alien
+ 
+  for (int k = 0; k < alien.size(); k++) {
+    if(alien.get(k).isAlive()) {
+    for (int i = 0; i < moment.size(); i++) {
+      if (dist(moment.get(i).getX(), moment.get(i).getY(), alien.get(k).getX(), alien.get(k).getY()) < 15) {
+        if (moment.get(i).isBulletAlive()) {
+          moment.remove(i);
+          if(!alien.get(k).isShield()){
+          alien.get(k).setAlive(false);
+          }
+          break;
+        }
+      }
+    }
+  }
+ }
+ 
+//collision with their bullets and u
+
+for(int i = 0; i < alien.size();i++) {
+  for(int k = 0; k < alien.get(i).alBullet.size();k++) {
+    if(dist(alien.get(i).alBullet.get(k).getX(), alien.get(i).alBullet.get(k).getY(), hi.getX(), hi.getY()) < 35) {
+      alien.get(i).alBullet.remove(k);
+      if(!hi.shieldDude()) {
+        
+        alive = false;
+        //&& alien.get(i).alBullet.get(k).isBulletAlive() this condition gives me an error
+      }
+      break;
+    }
+  }
+}
+      
+    
+
+
+
+
+
+
+  //******************************************************
+
 
   //coords & shield timer display
   text(("myDirectionX:" + hi.getDirectionX()), 30, 30);
   text(("myDirectionY:" + hi.getDirectionY()), 30, 50);
-  if(hi.getTimer() > 0) {
-  text(("ShieldTimer: " +  hi.getTimer()),30, 70);
+  if (hi.getTimer() > 0) {
+    text(("ShieldTimer: " +  hi.getTimer()), 30, 70);
   }
   // ***********************************
   // collision logic
-  for (int i = 0; i < geeking.size()-1; i++) {
+  for (int i = 0; i < geeking.size(); i++) {
     if (dist(hi.getX(), hi.getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
       geeking.remove(i);
-      if(!hi.shieldDude()){
-      alive = false;
+      if (!hi.shieldDude()) {
+        alive = false;
       }
     }
   }
-  
-    
-   
+
+
+
 
 
   //controls
@@ -110,14 +181,13 @@ if(dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeki
     hi.setDirectionY(0);
   }
   if (alive) {
-    
+
     hi.show();
     hi.move();
   }
   if (hi.shieldDude()) {
     hi.show3();
   }
-    
 }
 public void keyPressed() {
   if (key == 'w') {
@@ -143,7 +213,9 @@ public void keyPressed() {
   if (key == 'l')
   {
     fire = true;
-    moment.add(new Bullet(hi)); 
+    if (alive) {
+      moment.add(new Bullet(hi));
+    }
   }
   if (key == BACKSPACE) {
     alive = true;
@@ -163,20 +235,4 @@ public void keyReleased()
   if (key == 's') {
     keyDown = false;
   }
-  
 }
-//creates a bullet
-//if key button is pressed, add a value(will be max point) and a for loop to create 2 instances, figure out the equation for the paremeter
-/*public void fire() 
- {
- for(int i = 0; i < MAX;i++)
- {
- fresh[i] = new Bullet(hi.getX()+5,hi.getY()+5);
- fresh[i + 1] = new Bullet(hi.getX()+5,hi.getY()-5);
- fresh[i].move();
- fresh[i+1].move();
- fresh[i].show();
- fresh[i+1].show();
- }
- }
- */

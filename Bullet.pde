@@ -6,14 +6,15 @@ class Bullet extends Floater
 {
     bulletTimer = 500;
     bulletAlive = true;
-    myCenterX = hi.getX();
-    myCenterY = hi.getY();
-    myPointDirection = hi.getPointDirection();
+    myCenterX = ship.getX();
+    myCenterY = ship.getY();
+    myPointDirection = ship.getPointDirection();
     double dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + hi.myDirectionX;
     myDirectionY = 5*Math.sin(dRadians) + hi.myDirectionY;
     myColor = color(0,255,192); 
 }
+  public void setColor(int x, int b, int c) {myColor = color(x,b,c);}
   public boolean isBulletAlive() {return bulletAlive;}
   public void setX(int x)  {myCenterX = x;}
   public int getX() {return (int)myCenterX;}
