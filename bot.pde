@@ -1,3 +1,11 @@
+//make a new class to so that you could pick up shield perks that would randomly spawn on the map
+
+//fix spawnpoints
+//add a LONG timer that will spawn an increasing amount of drones every "wave"
+//variable for max drone count that will add
+//variable for timer to increase
+
+
 class bot extends Spaceship {
   private int shieldTimer = 300;
   private boolean alienAlive = true;
@@ -57,7 +65,7 @@ class bot extends Spaceship {
   }
 
   public void shoot() {
-    //shoots the bullet every second*
+    //shoots the bullet every second
 
     if (timer >= 300) {
       for (int i = 0; i < alien.size(); i++) {
@@ -75,8 +83,7 @@ class bot extends Spaceship {
       alBullet.get(i).move();
       alBullet.get(i).show();
     }
-    //checks for collision against player//
-    //for(int i = 0; i < alBullet.size()
+ 
   }
 
 
@@ -108,11 +115,3 @@ class bot extends Spaceship {
   }
  }
 }
-
-//make a new class to so that you could pick up shield perks that would randomly spawn on the map
-
-//fix spawnpoints
-// add a LONG timer that will spawn an increasing amount of drones every "wave"
-//variable for max drone count that will add
-//variable for timer to increase
-//increase game size, challenge..

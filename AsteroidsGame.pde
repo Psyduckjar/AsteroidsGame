@@ -12,7 +12,6 @@ private boolean keyLeft = false;
 private boolean keyDown = false;
 private boolean keyRight = false;
 private boolean fire = false;
-private boolean alienAlive = true;
 private int numEnemies = 4;
 
 
@@ -125,7 +124,7 @@ for(int i = 0; i < alien.size();i++) {
       if(!hi.shieldDude()) {
         
         alive = false;
-        //&& alien.get(i).alBullet.get(k).isBulletAlive() this condition gives me an error
+       
       }
       break;
     }
