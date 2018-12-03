@@ -111,7 +111,6 @@ class bot extends Spaceship {
 
 //make a new class to so that you could pick up shield perks that would randomly spawn on the map
 
-//fix invis bullets
 //fix spawnpoints
 // add a LONG timer that will spawn an increasing amount of drones every "wave"
 //variable for max drone count that will add

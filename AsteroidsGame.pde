@@ -24,7 +24,7 @@ public void setup()
   // create a laser beam that you can fire, consisting of a little charge (a bar that you'd need to fill up
   // before you can fire it) followed by a huge beam coming from the center tip
 {
-  size(1000, 1000);
+  size(3000, 1000);
   // background(0);
   for (int i = 0; i < omg.length; i++) { //makes the stars
     omg[i] = new Star();
@@ -103,7 +103,7 @@ public void draw()
   for (int k = 0; k < alien.size(); k++) {
     if(alien.get(k).isAlive()) {
     for (int i = 0; i < moment.size(); i++) {
-      if (dist(moment.get(i).getX(), moment.get(i).getY(), alien.get(k).getX(), alien.get(k).getY()) < 15) {
+      if (dist(moment.get(i).getX(), moment.get(i).getY(), alien.get(k).getX(), alien.get(k).getY()) < 15 && moment.get(i).isBulletAlive()) {
         if (moment.get(i).isBulletAlive()) {
           moment.remove(i);
           if(!alien.get(k).isShield()){
@@ -120,7 +120,7 @@ public void draw()
 
 for(int i = 0; i < alien.size();i++) {
   for(int k = 0; k < alien.get(i).alBullet.size();k++) {
-    if(dist(alien.get(i).alBullet.get(k).getX(), alien.get(i).alBullet.get(k).getY(), hi.getX(), hi.getY()) < 35) {
+    if(dist(alien.get(i).alBullet.get(k).getX(), alien.get(i).alBullet.get(k).getY(), hi.getX(), hi.getY()) < 35 && alien.get(i).alBullet.get(k).isBulletAlive()) {
       alien.get(i).alBullet.remove(k);
       if(!hi.shieldDude()) {
         
