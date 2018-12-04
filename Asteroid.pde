@@ -11,12 +11,10 @@ public void setX(int x)  {myCenterX = x;}
   public double getDirectionY()  {return myDirectionY;}
   public void setPointDirection(int degrees) {myPointDirection = degrees;}
   public double getPointDirection() {return myPointDirection;}
-  /*public int getxCorner() {return xCorners;}
-  public int getyCorner()*/
   public double astSize;
 public Asteroid() 
 {
- astSize = ((int)(Math.random()*5)-2); //will change the size by multiplying it withthe corners
+ astSize = ((int)(Math.random()*5)-2); //will change the size by multiplyg it withthe corners
  rotSpeed = ((int)(Math.random()*5)-2);
   corners = 9;
      int rand = ((int)(Math.random()*10));

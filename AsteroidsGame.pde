@@ -20,8 +20,8 @@ ArrayList<bot> alien = new ArrayList<bot>();
 
 
 public void setup() 
-  // create a laser beam that you can fire, consisting of a little charge (a bar that you'd need to fill up
-  // before you can fire it) followed by a huge beam coming from the center tip
+  // create a laser beam that you can fire, consistg of a little charge (a bar that you'd need to fill up
+  // before you can fire it) followed by a huge beam comg from the center tip
 {
   size(1000, 1000);
   // background(0);

@@ -1,9 +1,9 @@
 //make a new class to so that you could pick up shield perks that would randomly spawn on the map
 
-//fix spawnpoints
-//add a LONG timer that will spawn an increasing amount of drones every "wave"
+
+//add a LONG timer that will spawn an creasg amount of drones every "wave"
 //variable for max drone count that will add
-//variable for timer to increase
+//variable for timer to crease
 
 
 class bot extends Spaceship {
