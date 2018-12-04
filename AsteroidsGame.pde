@@ -16,7 +16,7 @@ private int numEnemies = 4;
 
 
 
-ArrayList<bot> alien = new ArrayList<bot>();
+ArrayList<Bot> alien = new ArrayList<Bot>();
 
 
 public void setup() 
@@ -37,7 +37,7 @@ public void setup()
 
   for (int i = 0; i < numEnemies; i++) 
   {
-    alien.add( new bot());
+    alien.add( new Bot());
   }
 
   //bad code **********************************
@@ -89,9 +89,7 @@ public void draw()
         alien.get(i).shoot();
         alien.get(i).autoMove();
         alien.get(i).move();
-        
           alien.get(i).alienShield();
-        
       
     }
   }

@@ -6,7 +6,7 @@
 //variable for timer to crease
 
 
-class bot extends Spaceship {
+class Bot extends Spaceship {
   private int shieldTimer = 300;
   private boolean alienAlive = true;
   private int timer;
@@ -23,7 +23,7 @@ class bot extends Spaceship {
  
 
 
-  public bot() {
+  public Bot() {
     moveTimer = 100;
     timer = 0;
     //bot will spawn from the 4 corners on the map
