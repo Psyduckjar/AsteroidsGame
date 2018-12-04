@@ -74,7 +74,7 @@ public void draw()
   }
   //*********************************************************
 
-  //SHOWING THE BOTS
+  //SHOWIG THE BOTS
 
   if (geeking.size() == 0) {
     for (int i = 0; i < alien.size(); i++) 
@@ -96,7 +96,7 @@ public void draw()
  
  
  //collision with your bullets & the alien
-/* 
+
   for (int k = 0; k < alien.size(); k++) {
     if(alien.get(k).isAlive()) {
     for (int i = 0; i < moment.size(); i++) {
@@ -131,7 +131,7 @@ for(int i = 0; i < alien.size();i++) {
       
     
 
-*/
+
 
 
 
