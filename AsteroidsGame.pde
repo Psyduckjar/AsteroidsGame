@@ -24,7 +24,7 @@ public void setup()
   // before you can fire it) followed by a huge beam comg from the center tip
 {
   size(1000, 1000);
-  // background(0);
+   background(0);
   for (int i = 0; i < omg.length; i++) { //makes the stars
     omg[i] = new Star();
   }   
@@ -103,7 +103,7 @@ public void draw()
       if (dist(moment.get(i).getX(), moment.get(i).getY(), alien.get(k).getX(), alien.get(k).getY()) < 15 && moment.get(i).isBulletAlive()) {
         if (moment.get(i).isBulletAlive()) {
           moment.remove(i);
-          if(!alien.get(k).isShield()){
+          if(!alien.get(k).shieldDude()){
           alien.get(k).setAlive(false);
           }
           break;

@@ -7,19 +7,18 @@
 
 
 class Bot extends Spaceship {
-  private int shieldTimer = 300;
-  private boolean alienAlive = true;
-  private int timer;
-  private boolean alienShield = true;
-  ArrayList<Bullet> alBullet = new ArrayList<Bullet>();
-  private  int cycle = ((int)(Math.random() * 4));
-  private int moveTimer;
-  private boolean alive = true;  
-  public boolean botAlive() { return alive; }
-  public boolean isAlive() { return alienAlive;}
-  public void setAlive(boolean x) {alienAlive = x;}
-  public void setShield(boolean x) {alienShield = x;}
- public boolean isShield() { return alienShield;}
+ private int shieldTimer = 300;
+ private boolean alienAlive = true;
+ private int timer;
+ ArrayList<Bullet> alBullet = new ArrayList<Bullet>();
+ private  int cycle = ((int)(Math.random() * 4));
+ private int moveTimer;
+ private boolean alive = true;  
+ public boolean botAlive() { return alive; }
+ public boolean isAlive() { return alienAlive;}
+ public void setAlive(boolean x) {alienAlive = x;}
+ 
+
  
 
 
@@ -111,7 +110,7 @@ class Bot extends Spaceship {
   tint(0, 255, 126, 0);
   ellipse((int)getX(),(int)getY(), 20, 20);
   } else { 
-   setShield(false);
+   shieldActive(false);
   }
  }
 }
