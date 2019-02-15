@@ -1,235 +1,179 @@
-private int starNum = 50;
-private boolean alive = true; 
-//private boolean shield = true;
-Spaceship hi = new Spaceship();
-Star[] omg = new Star[starNum];
-//Bullet fresh = new Bullet(hi);
-ArrayList<Bullet> moment = new ArrayList<Bullet>();
-ArrayList<Asteroid> geeking = new ArrayList<Asteroid>();
-//Asteroid[] geek = new Asteroid[50];
-private boolean keyUp = false;
-private boolean keyLeft = false;
-private boolean keyDown = false;
-private boolean keyRight = false;
-private boolean fire = false;
-private int numEnemies = 4;
+int sizeX = 1000; //size of the canvas
+int sizeY = 1000; //size of the canvas
+int numSlots1 = 500; // static ball limit (goes by hundreds)
+int numSlots2 = 600; // static ball limit (goes by hundreds)
+int numPins = numSlots2/100; // should give you the number of pins based off the num of Slots
+double gravity = 4; // global gravity var
 
-
-
-ArrayList<Bot> alien = new ArrayList<Bot>();
-
-
-public void setup() 
-  // create a laser beam that you can fire, consistg of a little charge (a bar that you'd need to fill up
-  // before you can fire it) followed by a huge beam comg from the center tip
-{
+fallingBall bob = new fallingBall(); //creates the falling ball
+ArrayList<collisionBalls> dude = new ArrayList<collisionBalls>(); // creates an array of the static balls
+pins[] pinner = new pins[numPins]; // creates pins ( dependent on numSlots )
+public void setup() {
   size(1000, 1000);
-   background(0);
-  for (int i = 0; i < omg.length; i++) { //makes the stars
-    omg[i] = new Star();
-  }   
-  for (int i = 0; i < 50; i++) {
-    geeking.add(new Asteroid());
+  for (int x = 0; x <= numSlots1; x+=100) { // creates a grid of balls
+    for (int y = 0; y <= numSlots1; y+=100) { 
+      dude.add(new collisionBalls( 250 + x, 300 +y));
+    }
   }
-  //ADDING BOT********************************
-
-
-
-  for (int i = 0; i < numEnemies; i++) 
-  {
-    alien.add( new Bot());
+  for (int x = 0; x <= numSlots2; x+=100) { // creates a grid of balls
+    for (int y = 0; y <= numSlots2; y+=100) { 
+      dude.add(new collisionBalls( 200 + x, 250 +y));
+    }
   }
-
-  //bad code **********************************
+  
+  for(int i = 0; i < pinner.length; i++) {   //creates pins based off the number of static balls
+    pinner[i] = new pins(i * 100 + 200, 850);
+    // creating pins 
+  }
+  
 }
-public void draw() 
-{
-  background(0);
-  // Drawing the stars & asteroids
-  for (int i = 0; i < omg.length; i++) { //puts the stars on the screen
-    omg[i].show();
-  } 
-  for (int i = 0; i < geeking.size(); i++) {
-    geeking.get(i).move();
-    geeking.get(i).show();
-  }
-  // Creating the shooting function 
-  if (fire) {
-    for (int i = 0; i < moment.size(); i++) {        
-      moment.get(i).move();
-      moment.get(i).show();
-    }
-  }
-  //bullet & asteroid collision
-  for (int k = 0; k < geeking.size(); k++) {
-    for (int i = 0; i < moment.size(); i++) {
-      if (dist(moment.get(i).getX(), moment.get(i).getY(), geeking.get(k).getX(), geeking.get(k).getY()) < 35) {
-        if (moment.get(i).isBulletAlive()) {
-          moment.remove(i);
-          geeking.remove(k);
-          break;
-        }
-      }
-    }
-  }
-  //*********************************************************
 
-  //SHOWIG THE BOTS
-
-  if (geeking.size() == 0) {
-    for (int i = 0; i < alien.size(); i++) 
-    {
-     
-      
-      if(alien.get(i).isAlive())
-      {  
-      alien.get(i).show();     
-      }
-        alien.get(i).findshoot();
-        alien.get(i).shoot();
-        alien.get(i).autoMove();
-        alien.get(i).move();
-          alien.get(i).alienShield();
-      
+public void draw() {
+  background(255);
+  //COLLISION WITH FALLINGBALL AND STATIC BALLS 
+  boolean changeMove = true;
+  for (int i = 0; i < dude.size(); i++) {
+    if (dist((float)bob.getX(), (float)bob.getY(), (float)dude.get(i).getX(), (float)dude.get(i).getY()) < 20) {
+      changeMove = false; //if hits ball move it to the right by 25 or to the left by 25
+      bob.setGravity(0);
+      bob.move2();
+    } else {
+      changeMove = true;
     }
   }
- 
- 
- //collision with your bullets & the alien
-
-  for (int k = 0; k < alien.size(); k++) {
-    if(alien.get(k).isAlive()) {
-    for (int i = 0; i < moment.size(); i++) {
-      if (dist(moment.get(i).getX(), moment.get(i).getY(), alien.get(k).getX(), alien.get(k).getY()) < 15 && moment.get(i).isBulletAlive()) {
-        if (moment.get(i).isBulletAlive()) {
-          moment.remove(i);
-          if(!alien.get(k).shieldDude()){
-          alien.get(k).setAlive(false);
-          }
-          break;
-        }
-      }
-    }
-  }
- }
- 
-//collision with their bullets and u
-
-for(int i = 0; i < alien.size();i++) {
-  for(int k = 0; k < alien.get(i).alBullet.size();k++) {
-    if(dist(alien.get(i).alBullet.get(k).getX(), alien.get(i).alBullet.get(k).getY(), hi.getX(), hi.getY()) < 35 && alien.get(i).alBullet.get(k).isBulletAlive()) {
-      alien.get(i).alBullet.remove(k);
-      if(!hi.shieldDude()) {
-        
-        alive = false;
-       
-      }
-      break;
-    }
-  }
+for(int i = 0; i < pinner.length; i++) {
+  pinner[i].show(); // creates slots
 }
       
+  //COLLISION WITH FALLINGBALL AND PINSLOTS
+  for (int i =0; i < pinner.length; i++) {
+    if(dist(bob.getX(), bob.getY(), (float)pinner[i].getX(), (float)pinner[i].getY()) < 20) {
+      changeMove = false; // sets it false so it doesnt constantly change the gravity back to its original
+      bob.setGravity(0); // stops the ball from moving downwards
+      text("Your ball landed on..." + pinner[i].getRand(), 10, 100); // a text that will show you the number that it landed on 
+		} 
+	}
+  
+  
+  
+  
+  if (changeMove) { //when true, will set the gravity to the global variable "gravity"
+    bob.setGravity(gravity); //this logic allows the ball to move constantly when nothing is touching it
+    bob.move(); // implements the ball to move with the gravity given
+  }
+  
+  bob.show(); // shows the falling ball
+  for (int i = 0; i < dude.size(); i++) {
+    dude.get(i).show(); //shows the static balls
+  }
+}
+
+//fix gravityE and gravity on draw and fallingball
+
+class fallingBall {
+  private double gravity; // declaring variables
+  private double x, y, r;
+  private int change;
+
+  public fallingBall() {
     
-
-
-
-
-
-
-  //******************************************************
-
-
-  //coords & shield timer display
-  text(("myDirectionX:" + hi.getDirectionX()), 30, 30);
-  text(("myDirectionY:" + hi.getDirectionY()), 30, 50);
-  if (hi.getTimer() > 0) {
-    text(("ShieldTimer: " +  hi.getTimer()), 30, 70);
+    gravity = 0.8; //initializing...
+    x = sizeX/2;
+    y = sizeY/4 - 100;
+    r = 25;
+    change = 50;
+    
   }
-  // ***********************************
-  // collision logic
-  for (int i = 0; i < geeking.size(); i++) {
-    if (dist(hi.getX(), hi.getY(), geeking.get(i).getX(), geeking.get(i).getY()) < 35) {
-      geeking.remove(i);
-      if (!hi.shieldDude()) {
-        alive = false;
+  public fallingBall(int a, int s, int d) { //This is an unnecessary (provisional) argument constructer that would be used to make multiple falling balls
+    gravity = 0.8; 
+    x = a;
+    y = s;
+    r = d;
+  }
+  public void move() { // moves the ball
+    if (y <= sizeY) {
+      y+=gravity; /// moves down by the gravity
+    }
+  }
+
+  public void move2() {
+    double randomChance = Math.random();
+   // this determines wether the ball will move left or right with a 50 percent chance
+      if (randomChance >= .5) {
+        x-=change;
+      } else {
+        x+=change;
       }
+    if(x <= 200) {
+      x+=change;
     }
-  }
-
-
-
-
-
-  //controls
-  if (keyUp == true) {
-    hi.accelerate(.25);
-    if (alive) {
-      hi.show2();
+    if(x >= 600) {
+      x-=change;
     }
+    
   }
-  if (keyRight == true) {
-    hi.turn(7);
-  }
-  if (keyLeft == true) {
-    hi.turn(-7);
-  }
-  if (keyDown == true) {
-    hi.setDirectionX(0);
-    hi.setDirectionY(0);
-  }
-  if (alive) {
 
-    hi.show();
-    hi.move();
+  public void show() { //a function to show the ball
+    ellipse((float)x, (float)y, (float)r, (float)r);
   }
-  if (hi.shieldDude()) {
-    hi.show3();
+  public double getY() { 
+    return y;
+  }
+  public double getX() { 
+    return x;
+  }
+  public void setGravity(double Y) { 
+    gravity = Y;
+  }
+  public double getGravity() { return gravity; }
+}
+
+class collisionBalls {
+  private int x, y;
+  public int getX() { 
+    return x;
+  }
+  public int getY() { 
+    return y;
+  }
+  public collisionBalls(int X, int Y) {
+    x = X;
+    y = Y;
+  }
+  public void show() {
+    ellipse(x, y, 20, 20);
   }
 }
-public void keyPressed() {
-  if (key == 'w') {
-    keyUp = true;
+
+
+
+class pins {
+  
+  private int x, y, r;
+  private int randomNum;
+  private int rectY;
+  public pins() { return;}
+  public pins(int a, int b) {
+    x = a;
+    y = b;
+    r = 50;
+		rectY = y + r * 2;
+    randomNum =(int)(Math.random()*100);
   }
-  if (key == 'd') {
-    keyRight = true;
+  
+  
+  public void show() {
+  
+	stroke(0,255,0);
+  line(x,y ,x, y + 95);  
+  rect(x, rectY, 100 , 10);
+  line(x + 100, y, x + 100, y + 95);
+    textSize(32);
+    text(randomNum, x + 20, y + 50);
+    fill(0,255,0);
   }
-  if (key == 'a') {
-    keyLeft = true;
-  }
-  if (key == 's') {
-    keyDown = true;
-  }
-  if (key == 'h')
-  {
-    hi.setX((int)(Math.random()*width));
-    hi.setY((int)(Math.random()*height));
-    hi.setDirectionX(0);
-    hi.setDirectionY(0);
-    hi.setPointDirection((int)(Math.random()*360));
-  }
-  if (key == 'l')
-  {
-    fire = true;
-    if (alive) {
-      moment.add(new Bullet(hi));
-    }
-  }
-  if (key == BACKSPACE) {
-    alive = true;
-  }
-}
-public void keyReleased() 
-{
-  if (key == 'w') {
-    keyUp = false;
-  }
-  if (key == 'd') {
-    keyRight = false;
-  }
-  if (key == 'a') {
-    keyLeft = false;
-  }
-  if (key == 's') {
-    keyDown = false;
-  }
+  public int getX() { return x + 50; }
+  public int getY() { return rectY; }
+  public int getRand() { return randomNum;} 
+  
 }
